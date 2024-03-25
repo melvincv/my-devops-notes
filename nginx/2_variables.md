@@ -1,9 +1,9 @@
 # NGINX Variables
 
 [Default Variables](https://nginx.org/en/docs/varindex.html)
-[Code](nginx/conf/variables.conf)
+[Code](conf/03+Variables.conf)
 
-`return 200 
+`return 200` 
 
 # Conditionals
 

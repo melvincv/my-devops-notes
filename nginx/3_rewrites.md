@@ -1,31 +1,48 @@
 # Return, Rewrite, try_files, named locations
 
-## return statement
+The two directives used for rewrites are `rewrite` and `return`
 
-[Code](nginx/conf/rewrites.conf)
+[Code](conf/04+Rewrites+&+Redirects.conf)
 
-`return status_code string;`
+## Redirect using return statement
+
+When the status code is in the 200 series,
+
+`return status_code "string";` \
+Eg: `return 200 "Hello World";`
 
 But when the status code is in the 300 series, return accepts a URI
 
-`return 307 /thumb.png;`
+`return status_code URI;` \
+Eg: `return 307 /thumb.png;`
 
-## Rewrite statement
+This will load `thumb.png` when the user goes to `/logo`:
+```
+location /logo {
+    return 307 /thumb.png
+}
+```
 
-Redirect tells nginx where to serve the request from.
-Rewrite changes the URI internally. Client URI does not change
+The URL changes to `/thumb.png`.
+
+## rewrite statement
+
+Redirect tells nginx where to serve the request from. Client URI changes. \
+Rewrite changes the URI internally. Client URI does not change. \
+Rewrites are evaluated from top down again.
 
 `rewrite regexp uri;`
 `rewrite ^/user/\w+ /greet;`
 
-- regex: more than one word after /user/
-- rewrites are evaluated from the top again.
-- regex: capture groups
-    - `rewrite ^/user/(\w+) /greet/$1;`
+- regex: starts with `/user/` , more than one word after `/user/`
 
-        Enclose the part to be captured in (). Reference it by $1, $2 etc.
-- 'last' flag
-    - when there are more than one rewrite statements, evaluate it last
+`rewrite ^/user/(\w+) /greet/$1;`
+
+- regex: capture groups:
+    - Enclose the part to be captured in (). Reference it by $1, $2 etc.
+    - 'last' flag: when there are more than one rewrite statements, evaluate it last
+
+Code: Try loading `/user/john`
 
 ## try_files
 

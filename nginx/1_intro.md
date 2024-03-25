@@ -5,7 +5,7 @@
 
 ## Context
 
-- Main context: Globaldirectives to the master process
+- Main context: Global directives to the master process
 - http {}
 - server {}
 - location /uri {}
@@ -16,22 +16,7 @@ Main config file: /etc/nginx/nginx.conf
 
 Basic Server context
 
-```
-events {}
-
-http {
-
-  include mime.types;
-
-  server {
-
-    listen 80;
-    server_name 167.99.93.26;
-
-    root /sites/demo;
-  }
-}
-```
+[Code](conf/01+Creating+a+Virtual+Host.conf)
 
 - mime.types file: file types and extensions
 - listen on port 80
@@ -41,7 +26,7 @@ http {
 
 Used to intercept and process a path request.
 
-[Code](nginx/conf/location-blocks.conf)
+[Code](conf/02+Location+Blocks.conf)
 
 ### Modifiers
 
